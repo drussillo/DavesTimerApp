@@ -3,20 +3,35 @@
 # simple timer app
 #
 #
-CURRENT_TIME="$(date +%s)"
-TIMERS="$(ls ./current_timers/)"
+SCRIPT_PATH="$(dirname "$(readlink -f "$0")")"
+TIMERS="$(ls $SCRIPT_PATH/current_timers/)"
 
-while [[ -n $TIMERS ]]; do
-  CURRENT=$(echo "$TIMERS" | awk 'NR==1')
+if [[ -n $TIMERS ]]; then
+  CURRENT_TIME="$(date +%s)"
 
-  # one of the timers < current time
-  if [[ $CURRENT < $(date +%s) ]]; then
-    # delete timer & alert user
-    rm ./current_timers/$CURRENT
-    ffplay -nodisp -autoexit ./alert_sounds/city_alert_siren.wav
-    # INSERT USER SPECIFIED EFFECTS HERE
-  fi
+  # next timer (to display)
+  NEXT=$(echo "$TIMERS" | awk 'NR==1')
 
-  TIMERS=$(echo "$TIMERS" | tail -n +2)
-done
+  # go through all timer files
+  while [[ -n $TIMERS ]]; do
+    CURRENT=$NEXT
 
+    # one of the timers < current time
+    if [[ $CURRENT < $(date +%s) ]]; then
+      # delete timer & alert user
+      rm $SCRIPT_PATH/current_timers/$CURRENT
+      ffplay -nodisp -autoexit $SCRIPT_PATH/alert_sounds/city_alert_siren.wav
+      # INSERT USER SPECIFIED EFFECTS HERE
+    fi
+
+    TIMERS=$(echo "$TIMERS" | tail -n +2)
+  done
+
+  echo "$(date -d \"@$NEXT\")"
+  echo "$(date -d \"@$NEXT\")"
+  echo "#AAAAAA"
+else
+  echo "no active timers"
+  echo "no active timers"
+  echo "#AAAAAA"
+fi

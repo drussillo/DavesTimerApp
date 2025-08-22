@@ -2,6 +2,7 @@
 #
 #
 #
+SCRIPT_PATH="$(dirname "$(readlink -f "$0")")"
 echo -e "\nDavesTimerApp: command-line-interface\n"
 echo "(* means optional)"
 echo "-------------------------------------"
@@ -9,7 +10,6 @@ echo "-------------------------------------"
 
 echo -en "Timer (1) or Alarm (2) \n..? "
 read -r CHOICE
-CHOICE=$(echo "$CHOICE" | rev)
 
 if [[ $CHOICE == 1 ]]; then
   echo -en "Enter time (hrs*/min) \n..? "
@@ -26,7 +26,7 @@ if [[ $CHOICE == 1 ]]; then
   # amount of seconds to be elapsed + seconds since the Epoch
   TIMER=$(($HOURS * 60 * 60 + $MINUTES * 60 + $(date +%s)))
 
-  touch "./current_timers/$TIMER"
+  touch "$SCRIPT_PATH/current_timers/$TIMER"
 
 elif [[ $CHOICE == 2 ]]; then
   echo "2"
