@@ -5,4 +5,3 @@
 #
 
 CURRENT_TIME="$(date +%s)"
-CURRENT_DATE="$(date +%m-%d-%y)"
