@@ -12,15 +12,15 @@ echo -en "Timer (1) or Alarm (2) \n..? "
 read -r CHOICE
 
 if [[ $CHOICE == 1 ]]; then
-  echo -en "Enter time (hrs*/min) \n..? "
+  echo -en "Enter time (h*:m) \n..? "
   read -r TIMER
 
-  MINUTES="$(echo "$TIMER" | awk -F/ '{print $2}')"
+  MINUTES="$(echo "$TIMER" | awk -F: '{print $2}')"
   if [[ -z $MINUTES ]]; then
-    MINUTES="$(echo "$TIMER" | awk -F/ '{print $1}')"
+    MINUTES="$(echo "$TIMER" | awk -F: '{print $1}')"
     HOURS="0"
   else
-    HOURS="$(echo "$TIMER" | awk -F/ '{print $1}')"
+    HOURS="$(echo "$TIMER" | awk -F: '{print $1}')"
   fi
 
   # amount of seconds to be elapsed + seconds since the Epoch
