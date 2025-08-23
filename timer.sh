@@ -10,7 +10,7 @@ if [[ -n "$NEXT_TIMER" ]]; then
 
   if [[ $NEXT_TIMER -lt $CURRENT_TIME ]]; then
     # delete timer & alert user
-    rm $SCRIPT_PATH/current_timers/NEXT_TIMER$
+    rm $SCRIPT_PATH/current_timers/$NEXT_TIMER
     # INSERT USER SPECIFIED EFFECTS HERE
     ffplay -nodisp -autoexit $SCRIPT_PATH/alert_sounds/city_alert_siren.wav
   fi
