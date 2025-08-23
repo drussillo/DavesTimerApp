@@ -37,7 +37,7 @@ if [[ -n "$NEXT_TIMER" ]]; then
   echo "$DISPLAY"
   echo "#AAAAAA"
 else
-  echo "no active timers"
+  echo "(addt) no active timers"
   echo "no active timers"
   echo "#AAAAAA"
 fi
