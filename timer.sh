@@ -14,6 +14,7 @@ if [[ -n "$NEXT_TIMER" ]]; then
     # INSERT USER SPECIFIED EFFECTS HERE
     #
     #
+    redshift -O 1000
     ffplay -nodisp -autoexit $SCRIPT_PATH/alert_sounds/city_alert_siren.wav
     #
     #
