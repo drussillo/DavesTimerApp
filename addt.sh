@@ -32,9 +32,22 @@ if [[ $CHOICE == 1 ]]; then
   exit
 
 elif [[ $CHOICE == 2 ]]; then
+  echo -en "\nEnter time (hh:mm, 24hrs) \n..? "
+  read -r TIMER
+
+  POSSIBLE_TIMER="$(date -d "$TIMER" +%s)"
+  if [[ $POSSIBLE_TIMER -lt "$(date +%s)" ]]; then
+    POSSIBLE_TIMER=$(($POSSIBLE_TIMER + 24 * 60 * 60))
+  fi
+  echo -e "\nTIMER: $(date -d "@$POSSIBLE_TIMER" +%I:%M\ %p\ \(%H:%M\)\ \o\n\ %m/%d)"
+  echo -en "(date mm/dd) \n..? "
+  read -r NEW_DATE
+  if [[ -n "$NEW_DATE" ]]; then
+    POSSIBLE_TIMER="$(date -d "$NEW_DATE $(date -d "@$POSSIBLE_TIMER" +%H:%M)")"
+    echo "$POSSIBLE_TIMER"
+  fi
 
   #TODO
-  echo "message"
   exit
 
 elif [[ $CHOICE == 3 ]]; then
