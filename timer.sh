@@ -12,16 +12,27 @@ if [[ -n "$NEXT_TIMER" ]]; then
     # delete timer & alert user
     rm $SCRIPT_PATH/current_timers/$NEXT_TIMER
     # INSERT USER SPECIFIED EFFECTS HERE
+    #
+    #
     ffplay -nodisp -autoexit $SCRIPT_PATH/alert_sounds/city_alert_siren.wav
+    #
+    #
+    #
   fi
 
   # for i3blocks
   DISPLAY="$(date -d "@$NEXT_TIMER" +%m/%d\ -\ %H:%M) - "
 
-  # make sure time left is diplayed in 00:00 instead of 0:0
-  MINUTES=$((($NEXT_TIMER-$CURRENT_TIME) / 60))
-  SECONDS=$((($NEXT_TIMER-$CURRENT_TIME) % 60))
+  HOURS=$((($NEXT_TIMER - $CURRENT_TIME) / 60 / 60))
+  MINUTES=$(((($NEXT_TIMER - $CURRENT_TIME) / 60) % 60))
+  SECONDS=$((($NEXT_TIMER - $CURRENT_TIME) % 60))
 
+  # only display hours if necessary
+  if [[ $HOURS > 0 ]]; then
+    DISPLAY+="$HOURS:"
+  fi
+
+  # make sure time left is diplayed in 00:00 instead of 0:0
   if [[ $MINUTES -lt 10 ]]; then
     DISPLAY+="0$MINUTES:"
   else

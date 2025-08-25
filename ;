@@ -39,7 +39,7 @@ elif [[ $CHOICE == 2 ]]; then
   POSSIBLE_TIMER="$(date -d "$TIMER" +%s)"
   # adjust if on the day after
   if [[ $POSSIBLE_TIMER -lt "$CURRENT_TIME" ]]; then
-    POSSIBLE_TIMER=$(date -d "$(date -d "@$POSSIBLE_TIMER") + 1 day" +%s)
+    POSSIBLE_TIMER=$(($POSSIBLE_TIMER + 24 * 60 * 60))
   fi
   echo -e "\nTIMER: $(date -d "@$POSSIBLE_TIMER" +%I:%M\ %p\ \(%H:%M\)\ \o\n\ %m/%d/%Y)"
   echo -en "(date mm/dd) \n..? "
@@ -47,19 +47,10 @@ elif [[ $CHOICE == 2 ]]; then
   if [[ -n "$NEW_DATE" ]]; then
     POSSIBLE_TIMER="$(date -d "$NEW_DATE $(date -d "@$POSSIBLE_TIMER" +%H:%M)" +%s)"
     # adjust if on the year after
-    if [[ "$POSSIBLE_TIMER" -lt "$CURRENT_TIME" ]]; then
-      POSSIBLE_TIMER="$(date -d "$(date -d "@$POSSIBLE_TIMER") + 1 year" +%s)"
-    fi
-  fi
-  echo -e "\nTIMER: $(date -d "@$POSSIBLE_TIMER" +%I:%M\ %p\ \(%H:%M\)\ \o\n\ %m/%d/%Y)"
-  echo -en "Press enter to confirm \n..? "
-  read -r CHOICE
-
-  if [[ -z $CHOICE ]]; then
-    touch "$SCRIPT_PATH/current_timers/$POSSIBLE_TIMER"
-    echo "New timer: $(date -d "@$POSSIBLE_TIMER" +%m/%d\ -\ %H:%M:%S) - $((($POSSIBLE_TIMER - $CURRENT_TIME) / 60))min remaining"
-  else
-    echo "Alarm initiation canceled." >&2
+    echo "$(date -d "$(date -d "@$POSSIBLE_TIMER") + 1 year")"
+    # if [[ "$POSSIBLE_TIMER" -lt "$CURRENT_TIME" ]]; then
+    #   POSSIBLE_TIMER="$(($POSSIBLE_TIMER))"
+    # fi
   fi
 
   #TODO
@@ -75,6 +66,7 @@ elif [[ $CHOICE == 3 ]]; then
     # Display all timers in right format
 
     TEMP=$(echo "$TIMERS" | awk 'NR==1')
+    echo "$TEMP"
     i=1
     while [[ -n $TEMP ]]; do
       echo "($i)  $(date -d "@$TEMP" +%m/%d\ -\ %H:%M:%S) - $((($TEMP - $CURRENT_TIME) / 60))min remaining"
