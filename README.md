@@ -1,2 +1,2 @@
 # DavesTimerApp
-Very simple cli timer application for linux. 
+Very simple cli timer application for i3blocks.
