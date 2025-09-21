@@ -2,7 +2,7 @@
 #
 #
 #
-SCRIPT_PATH="$(dirname "$(readlink -f "$0")")"
+SCRIPT_PATH="${HOME}/.config/i3blocks/scripts/DavesTimerApp"
 CURRENT_TIME=$(date +%s)
 echo "-------------------------------------"
 echo "DavesTimerApp: command-line-interface"

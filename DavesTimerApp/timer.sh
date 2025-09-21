@@ -2,7 +2,7 @@
 #
 #
 #
-SCRIPT_PATH="$(dirname "$(readlink -f "$0")")"
+SCRIPT_PATH="${HOME}/.config/i3blocks/scripts/DavesTimerApp"
 NEXT_TIMER="$(ls -X $SCRIPT_PATH/current_timers/ | awk 'NR==1')"
 
 if [[ -n "$NEXT_TIMER" ]]; then
