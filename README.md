@@ -25,5 +25,8 @@ Timer (1), Alarm (2), Remove (3)
 ```
 You can either add a timer (minutes or hours:minutes), an alarm (24h time format), or remove existing timers.
 
-The app is integrated with i3blocks. There will be a blocklet with the date, time, and countdown for when the 
-timer will go off. Example: `09/21 - 14:27 - 01:20```
+The app is integrated with i3blocks. There will be a blocklet with the date, time, and countdown for when the  
+timer will go off. Example: `09/21 - 14:27 - 01:20`
+
+When the timer goes off the screen will turn red and a siren .wav file will play. These effects can be modified  
+by the user if they want.
